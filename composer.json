@@ -1,0 +1,16 @@
+{
+    "name": "smtech/lti-configuration-xml",
+    "description": "Generate an LTI configuration XML file from parameters",
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Seth Battis",
+            "email": "sethbattis@stmarksschool.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "smtech\\LTI\\Configuration\\": "src"
+        }
+    }
+}
