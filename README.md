@@ -27,3 +27,5 @@ header('Content-type: application/xml');
 echo $config->saveXML();
 exit;
 ```
+
+[Documentation included in the repo.](https://htmlpreview.github.io/?https://raw.githubusercontent.com/smtech/lti-configuration-xml/master/doc/namespaces/smtech.LTI.Configuration.html)
