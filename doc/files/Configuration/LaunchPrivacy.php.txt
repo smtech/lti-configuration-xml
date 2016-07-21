@@ -9,7 +9,7 @@ use MyCLabs\Enum\Enum;
  * for sharing information to Tool Providers.
  *
  * @author Seth Battis <SethBattis@stmarksschool.org>
- * @version v1.0
+ * @version 1.0
  */
 class LaunchPrivacy extends Enum {
     const USER_PROFILE = 'public';
@@ -17,3 +17,4 @@ class LaunchPrivacy extends Enum {
     const EMAIL_ONLY = 'email_only';
     const ANONYMOUS = 'anonymous';
 }
+

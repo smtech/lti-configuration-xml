@@ -8,6 +8,9 @@
             "email": "sethbattis@stmarksschool.org"
         }
     ],
+    "require": {
+        "myclabs/php-enum": "~1.0"
+    },
     "autoload": {
         "psr-4": {
             "smtech\\LTI\\Configuration\\": "src"

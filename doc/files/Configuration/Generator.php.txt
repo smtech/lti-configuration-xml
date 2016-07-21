@@ -7,7 +7,7 @@ use DOMElement;
 
 use smtech\LTI\Configuration\LaunchPrivacy;
 use smtech\LTI\Configuration\Option;
-use smtech\LTI\Configuration\Exception\ConfigurationException;
+use smtech\LTI\Exception\ConfigurationException;
 
 /**
  * Generate a valid LTI Tool Provider configuration XML document to facilitate
@@ -23,7 +23,7 @@ use smtech\LTI\Configuration\Exception\ConfigurationException;
  *      XML files.
  *
  * @author Seth Battis <SethBattis@stmarksschool.org>
- * @version v1.0
+ * @version 1.0
  */
 class Generator {
 
@@ -465,3 +465,4 @@ class Generator {
         return $options;
     }
 }
+

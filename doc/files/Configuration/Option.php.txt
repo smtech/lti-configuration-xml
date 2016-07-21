@@ -8,7 +8,7 @@ use MyCLabs\Enum\Enum;
  * An enumerated type that describes different types of LTI placement options.
  *
  * @author Seth Battis <SethBattis@stmarksschool.org>
- * @version v1.0
+ * @version 1.0
  */
 class Option extends Enum {
     const EDITOR = 'editor';
@@ -18,3 +18,4 @@ class Option extends Enum {
     const ACCOUNT_NAVIGATION = 'account_navigation';
     const USER_NAVIGATION = 'user_navigation';
 }
+
