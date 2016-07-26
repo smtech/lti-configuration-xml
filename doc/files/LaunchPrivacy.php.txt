@@ -11,7 +11,8 @@ use MyCLabs\Enum\Enum;
  * @author Seth Battis <SethBattis@stmarksschool.org>
  * @version v1.0
  */
-class LaunchPrivacy extends Enum {
+class LaunchPrivacy extends Enum
+{
     const USER_PROFILE = 'public';
     const NAME_ONLY = 'name_only';
     const EMAIL_ONLY = 'email_only';

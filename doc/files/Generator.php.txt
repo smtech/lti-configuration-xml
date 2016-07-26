@@ -25,7 +25,8 @@ use smtech\LTI\Configuration\Exception\ConfigurationException;
  * @author Seth Battis <SethBattis@stmarksschool.org>
  * @version v1.0
  */
-class Generator {
+class Generator
+{
 
     /** XML schema instance */
     const XSI =   'http://www.w3.org/2001/XMLSchema-instance';
@@ -176,7 +177,8 @@ class Generator {
      *
      * @param string $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         if (empty((string) $name)) {
             throw new ConfigurationException(
                 'The configuration must specify a non-empty name for the Tool Provider.',
@@ -193,7 +195,8 @@ class Generator {
      * @param string $id [description]
      * @throws ConfigurationException TOOL_PROVIDER if empty
      */
-    public function setID($id) {
+    public function setID($id)
+    {
         /*
          * TODO validate/tokenize the actual ID
          */
@@ -213,7 +216,8 @@ class Generator {
      *
      * @param string $launchURL
      */
-    public function setLaunchURL($launchURL) {
+    public function setLaunchURL($launchURL)
+    {
         /*
          * TODO validate the actual URL?
          */
@@ -232,7 +236,8 @@ class Generator {
      *
      * @param string $description
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = (empty((string) $description) ? false : (string) $description);
     }
 
@@ -241,7 +246,8 @@ class Generator {
      *
      * @param string $iconURL
      */
-    public function setIconURL($iconURL) {
+    public function setIconURL($iconURL)
+    {
         /*
          * TODO validate the actual URL?
          */
@@ -256,7 +262,8 @@ class Generator {
      *
      * @see LaunchPrivacy `LaunchPrivacy` enumerated type
      */
-    public function setLaunchPrivacy($launchPrivacy) {
+    public function setLaunchPrivacy($launchPrivacy)
+    {
         if (!LaunchPrivacy::isValid($launchPrivacy)) {
             throw new ConfigurationException(
                 "Invalid launch privacy setting '$launchPrivacy'",
@@ -272,7 +279,8 @@ class Generator {
      *
      * @param string $domain
      */
-    public function setDomain($domain) {
+    public function setDomain($domain)
+    {
         $this->domain = (empty($domain) ? false : $domain);
     }
 
@@ -286,14 +294,15 @@ class Generator {
      *
      * @see Option `Option` enumerated type
      */
-    public function setOption($option, array $properties) {
-        if (!Option::isValid($option)) {
+    public function setOption($option, array $properties)
+    {
+        if (!is_a($option, Option::class) && !Option::isValid($option)) {
             throw new ConfigurationException(
                 "Invalid configuration option '$option'",
                 ConfigurationException::TOOL_PROVIDER
             );
         } else {
-            $this->options[$option] = $properties;
+            $this->options[(string) $option] = $properties;
         }
     }
 
@@ -307,14 +316,15 @@ class Generator {
      *
      * @see Option `Option` enumerated type
      */
-    public function setOptionProperty($option, $property, $value) {
-        if (!Option::isValid($option)) {
+    public function setOptionProperty($option, $property, $value)
+    {
+        if (!is_a($option, Option::class) && !Option::isValid($option)) {
             throw new ConfigurationException(
                 "Invalid configuration option '$option'",
                 ConfigurationException::TOOL_PROVIDER
             );
         } else {
-            $this->options[$option][$property] = $value;
+            $this->options[(string) $option][$property] = $value;
         }
     }
 
@@ -323,7 +333,8 @@ class Generator {
      *
      * @return string
      */
-    public function saveXML() {
+    public function saveXML()
+    {
 
         $config = new DOMDocument('1.0', 'UTF-8');
         $config->formatOutput = true;
@@ -440,29 +451,33 @@ class Generator {
      * @param  string[] $properties
      * @return DOMElement
      */
-    private function getOptionsElement(DOMDocument $config, Option $option, array $properties) {
-        $options = $config->createElementNS(self::LTICM, 'lticm:options');
-        $options->setAttribute('name', $option);
+    private function getOptionsElement(DOMDocument $config, $option, array $properties)
+    {
+        if (is_a($option, Option::class) || Option::isValid($option)) {
+            $options = $config->createElementNS(self::LTICM, 'lticm:options');
+            $options->setAttribute('name', $option);
 
-        /* inherit link text and launch URL properties if not specified */
-        if (!array_key_exists('text', $properties)) {
-            $properties['text'] = $this->name;
-        }
-        if (!array_key_exists('url', $properties)) {
-            $properties['url'] = $this->launchURL;
-        }
+            /* inherit link text and launch URL properties if not specified */
+            if (!array_key_exists('text', $properties)) {
+                $properties['text'] = $this->name;
+            }
+            if (!array_key_exists('url', $properties)) {
+                $properties['url'] = $this->launchURL;
+            }
 
-        foreach ($properties as $name => $value) {
-            $property = $config->createElementNS(
-                self::LTICM,
-                'lticm:property',
-                $value
-            );
-            $property->setAttribute('name', $name);
-            $options->appendChild($property);
-        }
+            foreach ($properties as $name => $value) {
+                $property = $config->createElementNS(
+                    self::LTICM,
+                    'lticm:property',
+                    $value
+                );
+                $property->setAttribute('name', $name);
+                $options->appendChild($property);
+            }
 
-        return $options;
+            return $options;
+        }
+        return null;
     }
 }
 

@@ -10,6 +10,7 @@ use Exception;
  * @author Seth Battis <SethBattis@stmarksschool.org>
  * @version v1.0
  */
-class ConfigurationException extends Exception {
+class ConfigurationException extends Exception
+{
     const TOOL_PROVIDER = 1;
 }

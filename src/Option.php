@@ -10,7 +10,8 @@ use MyCLabs\Enum\Enum;
  * @author Seth Battis <SethBattis@stmarksschool.org>
  * @version v1.0
  */
-class Option extends Enum {
+class Option extends Enum
+{
     const EDITOR = 'editor';
     const LINK_SELECTION = 'link_selection';
     const HOMEWORK_SUBMISSION = 'homework_submission';
